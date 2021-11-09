@@ -1,0 +1,28 @@
+$(document).on('ready', function() {
+    $('.ui.sidebar')
+        .sidebar('attach events', '.toc.item');
+
+    $('.message .close')
+        .on('click', function() {
+            $(this)
+                .closest('.message')
+                .transition('fade');
+        });
+    $('.ui.menu')
+        .on('click', '.item', function() {
+            if (!$(this).hasClass('dropdown')) {
+                $(this)
+                    .addClass('active')
+                    .siblings('.item')
+                    .removeClass('active');
+            }
+        });
+    $('.pointing.menu .item').tab();
+    $('.ui.dropdown').dropdown({
+        forceSelection: false,
+        selectOnKeydown: false,
+        showOnFocus: false,
+        on: "hover"
+    });
+    $('.ui.accordion').accordion();
+});

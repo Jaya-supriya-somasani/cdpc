@@ -1,0 +1,1031 @@
+$(document).ready(function() {
+    $('#submit').click(function(event) {
+        event.preventDefault();
+        var content = CKEDITOR.instances['tskill'].getData()
+
+        $.ajax({
+            url: "pages/updateresume.php",
+            method: "POST",
+            data: {
+                tskill: content
+            },
+            beforeSend: function() {
+                $("#submit").html(" Updating ...");
+            },
+            success: function(data) {
+                if (data == 1) {
+                    $("#result_tskills").fadeIn().html(
+                        '<div class="ui olive message"><i class="close icon"></i><div class="header"> Successfully Added</div></div><br>'
+                    );
+                    setTimeout(function() {
+                        $('#result_tskills').fadeOut("slow");
+                        $("#reload_tskills").load(" #reload_tskills");
+                        $("#reload_res").load(" #reload_res");
+                    }, 2000);
+
+                    $("#submit").html("Submit");
+
+                } else if (data == 2) {
+                    $("#result_tskills").fadeIn().html(
+                        '<div class="ui red message"><i class="close icon"></i><div class="header"> Sorry! Some error occurred. Try again</div></div><br>'
+                    );
+                    setTimeout(function() {
+                        $('#result_tskills').fadeOut("slow");
+                    }, 5000);
+
+
+                    $("#submit").html("Submit");
+
+
+                } else if (data == 4) {
+                    $("#result_tskills").fadeIn().html(
+                        '<div class="ui red message"><i class="close icon"></i><div class="header"> You must log in before performing this query</div></div><br>'
+                    );
+                    setTimeout(function() {
+                        $('#result_tskills').fadeOut("slow");
+                    }, 5000);
+
+
+                    $("#submit").html("Submit");
+
+
+                } else if (data == 3) {
+                    $("#result_tskills").fadeIn().html(
+                        '<div class="ui red message"><i class="close icon"></i><div class="header"> Please enter your  technical skills</div></div><br>'
+                    );
+                    setTimeout(function() {
+                        $('#result_tskills').fadeOut("slow");
+                    }, 5000);
+
+
+                    $("#submit").html("Submit");
+
+
+                } else {
+                    $("#result").fadeIn().html(
+                        '<div class="ui blue message"><i class="close icon"></i><div class="header"> Sorry , Some Server error occured please retry !!!</div></div><br>'
+                    );
+
+
+                    setTimeout(function() {
+                        $('#result_tskills').fadeOut("slow");
+                    }, 5000);
+
+                    $("#submit").html("Submit");
+
+
+                }
+            },
+            complete: function(data) {
+                $("#submit").html("Submit");
+            }
+        });
+    });
+    var i = 1;
+    $('#add').click(function(event) {
+        event.preventDefault();
+        i++;
+        $('#dynamic_field').append('<div id="row' + i + '" class="inline fields"><div class="field"><input type="text"  id="aoi" name="aoi[]" placeholder="Area of Ineterest ' + i + '"></div><div class="field"><button class="ui button red btn_remove" name="remove" id="' + i + '"  >Remove</button></div></div>');
+    });
+    $(document).on('click', '.btn_remove', function() {
+        var button_id = $(this).attr("id");
+        $('#row' + button_id + '').remove();
+    });
+    $('#aoi_submit').click(function(event) {
+        event.preventDefault();
+        $.ajax({
+            url: "pages/updateresume.php",
+            method: "POST",
+            data: $('#add_aoi').serialize(),
+            beforeSend: function() {
+                $("#aoi_submit").html(" Updating ...");
+
+            },
+            success: function(data) {
+
+                if (data == 1) {
+                    $("#result_aoi").fadeIn().html(
+                        '<div class="ui olive message"><i class="close icon"></i><div class="header"> Successfully Added</div></div><br>'
+                    );
+                    setTimeout(function() {
+                        $('#result_aoi').fadeOut("slow");
+                        $("#reload_aoi").load(" #reload_aoi");
+                        $("#reload_res").load(" #reload_res");
+                        $('#add_aoi')[0].reset();
+                    }, 2000);
+                    $("#aoi_submit").html("Submit");
+                } else if (data == 2) {
+                    $("#result_aoi").fadeIn().html(
+                        '<div class="ui red message"><i class="close icon"></i><div class="header"> Sorry ! Some error occured. Try again</div></div><br>'
+                    );
+                    setTimeout(function() {
+                        $('#result_aoi').fadeOut("slow");
+                    }, 5000);
+
+
+                    $("#aoi_submit").html("Submit");
+                } else if (data == 4) {
+                    $("#result_aoi").fadeIn().html(
+                        '<div class="ui red message"><i class="close icon"></i><div class="header"> You must log in before performing this query</div></div><br>'
+                    );
+                    setTimeout(function() {
+                        $('#result_aoi').fadeOut("slow");
+                    }, 5000);
+
+
+                    $("#aoi_submit").html("Submit");
+                } else if (data == 3) {
+                    $("#result_aoi").fadeIn().html(
+                        '<div class="ui red message"><i class="close icon"></i><div class="header"> Please enter your area of interest</div></div><br>'
+                    );
+                    setTimeout(function() {
+                        $('#result_aoi').fadeOut("slow");
+                    }, 5000);
+
+
+                    $("#aoi_submit").html("Submit");
+                } else {
+                    $("#result").fadeIn().html(
+                        '<div class="ui blue message"><i class="close icon"></i><div class="header"> Sorry , Some Server error occured please retry !!!</div></div><br>'
+                    );
+
+
+                    setTimeout(function() {
+                        $('#result_aoi').fadeOut("slow");
+                    }, 5000);
+
+                    $("#aoi_submit").html("Submit");
+                }
+            },
+            complete: function(data) {
+                $("#aoi_submit").html("Submit");
+            }
+        });
+    });
+
+});
+
+function formReset(formname) {
+    $('#' + formname + ' input[type="text"]').val('');
+    $('#' + formname + ' input[type="password"]').val('');
+    $('#' + formname + ' input[type="number"]').val('');
+    $('#' + formname + ' input[type="date"]').val('');
+    $('#' + formname + ' input[type="email"]').val('');
+    $('#' + formname + ' input[type="hidden"]').val('');
+    $('#' + formname + ' textarea').val('');
+    $('#' + formname + ' select').val('');
+    CKEDITOR.instances['description'].setData('');
+    // $('.dropdown .text').val('Choose Option');
+}
+
+function removeAoi(key, id) {
+    $.ajax({
+        url: "pages/updateresume.php",
+        type: "POST",
+        cache: false,
+        data: {
+            id: id,
+            aoi_key: key
+        },
+
+        beforeSend: function() {
+            $("#btnt_" + id + "").html("<i class='spinner icon'></i>");
+            console.log(id);
+        },
+        success: function(data) {
+
+            if (data == 1) {
+                $("#result_aoi").fadeIn().html(
+                    '<div class="ui olive message"><i class="close icon"></i><div class="header"> Successfully Deleted</div></div><br>'
+                );
+                setTimeout(function() {
+                    $('#result_aoi').fadeOut("slow");
+                    $("#reload_res").load(" #reload_res");
+                    $("#reload_aoi").load(" #reload_aoi");
+                }, 2000);
+                $("#btnt_" + id + "").html("<i class='spinner icon'></i>");
+            } else if (data == 2) {
+                $("#result_aoi").fadeIn().html(
+                    '<div class="ui red message"><i class="close icon"></i><div class="header"> Sorry ! Some error occured. Try again</div></div><br>'
+                );
+                setTimeout(function() {
+                    $('#result_aoi').fadeOut("slow");
+                }, 5000);
+
+
+                $("#btnt_" + id + "").html("<i class='times icon'></i>");
+            } else if (data == 3) {
+                $("#result_aoi").fadeIn().html(
+                    '<div class="ui red message"><i class="close icon"></i><div class="header"> You must log in before performing this query</div></div><br>'
+                );
+                setTimeout(function() {
+                    $('#result_aoi').fadeOut("slow");
+                }, 5000);
+
+
+                $("#btnt_" + id + "").html("<i class='times icon'></i>");
+            } else if (data == 4) {
+                $("#result_aoi").fadeIn().html(
+                    '<div class="ui red message"><i class="close icon"></i><div class="header"> We lost the keys. Refresh the page and try again</div></div><br>'
+                );
+                setTimeout(function() {
+                    $('#result_aoi').fadeOut("slow");
+                }, 5000);
+
+
+                $("#btnt_" + id + "").html("<i class='times icon'></i>");
+            } else {
+                $("#result").fadeIn().html(
+                    '<div class="ui blue message"><i class="close icon"></i><div class="header"> Sorry , Some Server error occured please retry !!!</div></div><br>'
+                );
+
+
+                setTimeout(function() {
+                    $('#result_aoi').fadeOut("slow");
+                }, 5000);
+
+                $("#btnt_" + id + "").html("<i class='times icon'></i>");
+            }
+        },
+        complete: function(data) {
+            $("#btnt_" + id + "").html("<i class='times icon'></i>");
+        }
+    });
+
+}
+
+
+function removeProject(key, id) {
+    $.ajax({
+        url: "pages/updateresume.php",
+        type: "POST",
+        cache: false,
+        data: {
+            id: id,
+            del_pro_key: key
+        },
+
+        beforeSend: function() {
+            $("#btn_" + id + "").html("<i class='spinner icon'></i>");
+            console.log(id);
+        },
+        success: function(data) {
+
+            if (data == 1) {
+                $("#result_project").fadeIn().html(
+                    '<div class="ui olive message"><i class="close icon"></i><div class="header"> Successfully Deleted</div></div><br>'
+                );
+                setTimeout(function() {
+                    $('#result_project').fadeOut("slow");
+                    $("#reload_res").load(" #reload_res");
+                    $("#reload_project").load(" #reload_project");
+                }, 2000);
+                formReset('add_pro');
+                $("#btn_" + id + "").html("<i class='spinner icon'></i>");
+            } else if (data == 2) {
+                $("#result_project").fadeIn().html(
+                    '<div class="ui red message"><i class="close icon"></i><div class="header"> Sorry ! Not found Try again</div></div><br>'
+                );
+                setTimeout(function() {
+                    $('#result_project').fadeOut("slow");
+                }, 5000);
+
+
+                $("#btn_" + id + "").html("<i class='times icon'></i>");
+            } else if (data == 3) {
+                $("#result_project").fadeIn().html(
+                    '<div class="ui red message"><i class="close icon"></i><div class="header"> You must log in before performing this query</div></div><br>'
+                );
+                setTimeout(function() {
+                    $('#result_project').fadeOut("slow");
+                }, 5000);
+
+
+                $("#btn_" + id + "").html("<i class='times icon'></i>");
+            } else if (data == 4) {
+                $("#result_project").fadeIn().html(
+                    '<div class="ui red message"><i class="close icon"></i><div class="header"> We lost the keys. Refresh the page and try again</div></div><br>'
+                );
+                setTimeout(function() {
+                    $('#result_project').fadeOut("slow");
+                }, 5000);
+
+
+                $("#btn_" + id + "").html("<i class='times icon'></i>");
+            } else {
+                $("#result").fadeIn().html(
+                    '<div class="ui blue message"><i class="close icon"></i><div class="header"> Sorry , Some Server error occured please retry !!!</div></div><br>'
+                );
+
+
+                setTimeout(function() {
+                    $('#result_project').fadeOut("slow");
+                }, 5000);
+
+                $("#btn_" + id + "").html("<i class='times icon'></i>");
+            }
+        },
+        complete: function(data) {
+            $("#btn_" + id + "").html("<i class='times icon'></i>");
+        }
+    });
+
+}
+
+
+function removeSkill(key, id) {
+    $.ajax({
+        url: "pages/updateresume.php",
+        type: "POST",
+        cache: false,
+        data: {
+            id: id,
+            del_skill_key: key
+        },
+
+        beforeSend: function() {
+            $("#btn_skill_" + id + "").html("<i class='spinner icon'></i>");
+            // console.log(id);
+        },
+        success: function(data) {
+
+            if (data == 1) {
+                $("#result_tskills").fadeIn().html(
+                    '<div class="ui olive message"><i class="close icon"></i><div class="header"> Successfully Deleted</div></div><br>'
+                );
+                setTimeout(function() {
+                    $('#result_tskills').fadeOut("slow");
+                    $("#reload_res").load(" #reload_res");
+                    $("#reload_tskill").load(" #reload_tskill");
+                }, 2000);
+                formReset('add_tskills');
+                $("#btn_skill_" + id + "").html("<i class='spinner icon'></i>");
+            } else if (data == 2) {
+                $("#result_tskills").fadeIn().html(
+                    '<div class="ui red message"><i class="close icon"></i><div class="header"> Sorry ! Not found Try again</div></div><br>'
+                );
+                setTimeout(function() {
+                    $('#result_tskills').fadeOut("slow");
+                }, 5000);
+
+
+                $("#btn_skill_" + id + "").html("<i class='times icon'></i>");
+            } else if (data == 3) {
+                $("#result_tskills").fadeIn().html(
+                    '<div class="ui red message"><i class="close icon"></i><div class="header"> You must log in before performing this query</div></div><br>'
+                );
+                setTimeout(function() {
+                    $('#result_tskills').fadeOut("slow");
+                }, 5000);
+
+
+                $("#btn_skill_" + id + "").html("<i class='times icon'></i>");
+            } else if (data == 4) {
+                $("#result_tskills").fadeIn().html(
+                    '<div class="ui red message"><i class="close icon"></i><div class="header"> We lost the keys. Refresh the page and try again</div></div><br>'
+                );
+                setTimeout(function() {
+                    $('#result_tskills').fadeOut("slow");
+                }, 5000);
+
+
+                $("#btn_skill_" + id + "").html("<i class='times icon'></i>");
+            } else {
+                $("#result_tskills").fadeIn().html(
+                    '<div class="ui blue message"><i class="close icon"></i><div class="header"> Sorry , Some Server error occured please retry !!!</div></div><br>'
+                );
+
+
+                setTimeout(function() {
+                    $('#result_tskills').fadeOut("slow");
+                }, 5000);
+
+                $("#btn_skill_" + id + "").html("<i class='times icon'></i>");
+            }
+        },
+        complete: function(data) {
+            $("#btn_skill_" + id + "").html("<i class='times icon'></i>");
+        }
+    });
+
+}
+
+
+$("document").ready(function() {
+    /* validation */
+    $("#basic-form").validate({
+        rules: {
+            obj: {
+                reqiured: true
+            },
+            email: {
+                email: true,
+                required: true
+            },
+            mobile: {
+                number: true,
+                maxlength: 10,
+                minlength: 10,
+                required: true
+            },
+            dob: {
+                date: true,
+                required: true
+            },
+            syear: {
+                minlength: 2,
+                required: true
+            },
+            pyear: {
+                minlength: 2,
+                required: true
+            },
+            byear: {
+                minlength: 2,
+                required: true
+            },
+            agree: {
+                required: true
+            },
+        },
+        messages: {
+            agree: {
+                required: "You must and should agree this"
+            }
+        },
+
+        submitHandler: updateBasicInfo
+
+    });
+
+    function updateBasicInfo() {
+        var data = $("#basic-form").serialize();
+
+        $.ajax({
+            url: "pages/updateresume.php",
+            type: "POST",
+            cache: false,
+            data: data,
+
+            beforeSend: function() {
+                $("#btn-basic").html(" Updating ...");
+
+            },
+            success: function(data) {
+
+                if (data == 1) {
+                    $("#result").fadeIn().html(
+                        '<div class="ui olive message"><i class="close icon"></i><div class="header"> Successfully Updated</div></div><br>'
+                    );
+
+                    setTimeout(function() {
+                        $('#result').fadeOut("slow");
+                        $("#reload_res").load(" #reload_res");
+                        $("#reload").load(" #reload");
+                    }, 5000);
+
+
+                    $("#btn-basic").html("Submit");
+                } else if (data == 2) {
+                    $("#result").fadeIn().html(
+                        '<div class="ui red message"><i class="close icon"></i><div class="header"> Sorry ! Some error occured. Try again</div></div><br>'
+                    );
+                    setTimeout(function() {
+                        $('#result').fadeOut("slow");
+                    }, 5000);
+
+
+                    $("#btn-basic").html("Submit");
+                } else if (data == 3) {
+                    $("#result").fadeIn().html(
+                        '<div class="ui blue message"><i class="close icon"></i><div class="header"> You should log in before performing this query</div></div><br>'
+                    );
+
+                    setTimeout(function() {
+                        $('#result').fadeOut("slow");
+                    }, 5000);
+
+                    $("#btn-basic").html("Submit");
+                } else if (data == 6) {
+                    $("#result").fadeIn().html(
+                        '<div class="ui red message"><i class="close icon"></i><div class="header"> You must and should give the declaration.</div></div><br>'
+                    );
+                    setTimeout(function() {
+                        $('#result').fadeOut("slow");
+                    }, 5000);
+                    document.getElementById('agree').focus();
+                    $("#btn-basic").html("Submit");
+                } else if (data == 7) {
+                    $("#result").fadeIn().html(
+                        '<div class="ui red message"><i class="close icon"></i><div class="header"> Please enter your objective.It\'s required</div></div><br>'
+                    );
+                    setTimeout(function() {
+                        $('#result').fadeOut("slow");
+                    }, 5000);
+                    document.getElementById('objective').focus();
+                    $("#btn-basic").html("Submit");
+                } else {
+                    $("#result").fadeIn().html(
+                        '<div class="ui blue message"><i class="close icon"></i><div class="header"> Sorry , Some Server error occured please retry !!!</div></div><br>'
+                    );
+
+
+                    setTimeout(function() {
+                        $('#result').fadeOut("slow");
+                    }, 5000);
+
+                    $("#btn-basic").html("Submit");
+                }
+            },
+            complete: function(data) {
+                $("#btn-basic").html("Submit");
+            }
+        });
+
+    }
+});
+
+function editProject(key, id) {
+    $.ajax({
+        url: "pages/updateresume.php",
+        method: "GET",
+        data: {
+            id: id,
+            pro_key_edit: key
+        },
+        success: function(data) {
+            var get_data = JSON.parse(data);
+            $('#pname').val(get_data.pname);
+            $('#duration').val(get_data.duration);
+            $('#team').val(get_data.team);
+            $('#skills').val(get_data.skill);
+            $('#role').val(get_data.role);
+            // $('#description').val(get_data.description);
+            CKEDITOR.instances['description'].setData(get_data.description);
+            $('#hidden_key').val(get_data.key);
+
+        }
+    });
+}
+
+function editSkill(key, id) {
+    $.ajax({
+        url: "pages/updateresume.php",
+        method: "GET",
+        data: {
+            id: id,
+            skill_key_edit: key
+        },
+        success: function(data) {
+            var get_data = JSON.parse(data);
+            var level = 'Intermediate';
+            $('#skill').val(get_data.skill);
+            $('#level').val(level);
+            $('#type').val(get_data.type);
+            $('#hidden_key_skill').val(get_data.key);
+        }
+    });
+}
+
+
+function addSkill() {
+    var skill = document.getElementById('skill').value;
+    var level = document.getElementById('level').value;
+    var type = document.getElementById('type').value;
+    var key = document.getElementById('hidden_key_skill').value;
+    if (key == '') {
+        var status = 'Added';
+    } else {
+        var status = 'Updated';
+    }
+    $.ajax({
+        url: "pages/updateresume.php",
+        type: "POST",
+        cache: false,
+        data: {
+            level: level,
+            type: type,
+            skill: skill,
+            skey_pro: key
+        },
+
+        beforeSend: function() {
+            $("#btn-tskill").html(" Updating ...");
+
+        },
+        success: function(data) {
+
+            if (data == 1) {
+                $("#result_tskills").fadeIn().html(
+                    '<div class="ui olive message"><i class="close icon"></i><div class="header"> Successfully ' + status + '</div></div><br>'
+                );
+
+                setTimeout(function() {
+                    $('#result_tskills').fadeOut("slow");
+                    $("#reload_res").load(" #reload_res");
+                    $("#reload_tskill").load(" #reload_tskill");
+                    formReset('add_tskills');
+                }, 5000);
+
+
+                $("#btn-tskill").html("Add");
+
+            } else if (data == 2) {
+                $("#result_tskills").fadeIn().html(
+                    '<div class="ui red message"><i class="close icon"></i><div class="header"> Sorry ! Some error occured. Try again</div></div><br>'
+                );
+                setTimeout(function() {
+                    $('#result_tskills').fadeOut("slow");
+
+                }, 5000);
+
+
+                $("#btn-tskill").html("Add");
+
+            } else if (data == 3) {
+                $("#result_tskills").fadeIn().html(
+                    '<div class="ui blue message"><i class="close icon"></i><div class="header"> You should log in before performing this query</div></div><br>'
+                );
+
+                setTimeout(function() {
+                    $('#result_tskills').fadeOut("slow");
+                }, 5000);
+
+                $("#btn-tskill").html("Add");
+
+            } else if (data == 4) {
+                $("#result_tskills").fadeIn().html(
+                    '<div class="ui red message"><i class="close icon"></i><div class="header">Please enter your Skill.It\'s reqiured</div></div><br>'
+                );
+
+
+                setTimeout(function() {
+                    $('#result_tskills').fadeOut("slow");
+                }, 5000);
+
+                $("#btn-tskill").html("Add");
+
+                document.getElementById('skill').focus();
+            } else if (data == 5) {
+                $("#result_tskills").fadeIn().html(
+                    '<div class="ui red message"><i class="close icon"></i><div class="header">Please Choose Level.It\'s reqiured</div></div><br>'
+                );
+
+
+                setTimeout(function() {
+                    $('#result_tskills').fadeOut("slow");
+                }, 5000);
+
+                $("#btn-tskill").html("Add");
+
+                document.getElementById('level').focus();
+            } else if (data == 6) {
+                $("#result_tskills").fadeIn().html(
+                    '<div class="ui red message"><i class="close icon"></i><div class="header">Please Choose Skill Type.It\'s reqiured</div></div><br>'
+                );
+                setTimeout(function() {
+                    $('#result_tskills').fadeOut("slow");
+                }, 5000);
+
+                $("#btn-tskill").html("Add");
+
+                document.getElementById('type').focus();
+            } else if (data == 10) {
+                $("#result_tskills").fadeIn().html(
+                    '<div class="ui blue message"><i class="close icon"></i><div class="header"> Already added the project with this name</div></div><br>'
+                );
+                setTimeout(function() {
+                    $("#reload_res").load(" #reload_res");
+                    $('#result_tskills').fadeOut("slow");
+                }, 5000);
+
+                $("#btn-tskill").html("Add");
+
+            } else if (data == 11) {
+                $("#result_tskills").fadeIn().html(
+                    '<div class="ui red message"><i class="close icon"></i><div class="header"> Not a Valid Key. Refresh the page and edit </div></div><br>'
+                );
+                setTimeout(function() {
+                    $("#reload_res").load(" #reload_res");
+                    $('#result_tskills').fadeOut("slow");
+                }, 5000);
+
+                $("#btn-tskill").html("Add");
+
+            } else {
+                $("#result_tskills").fadeIn().html(
+                    '<div class="ui blue message"><i class="close icon"></i><div class="header"> Sorry , Some Server error occured please retry !!!</div></div><br>'
+                );
+
+
+                setTimeout(function() {
+                    $('#result_tskills').fadeOut("slow");
+                }, 5000);
+
+                $("#btn-tskill").html("Add");
+            }
+        },
+        complete: function(data) {
+            $("#btn-tskill").html("Add");
+        }
+    });
+
+}
+
+
+
+
+
+
+
+
+
+function addProject() {
+    var pname = document.getElementById('pname').value;
+    var duration = document.getElementById('duration').value;
+    var team = document.getElementById('team').value;
+    var role = document.getElementById('role').value;
+    var skill = document.getElementById('skills').value;
+    // var description = document.getElementById('description').value;
+    var key = document.getElementById('hidden_key').value;
+    var type = document.getElementById('ptype').value;
+    if (type == '' || type == null) {
+        $("#result_projects").fadeIn().html(
+            '<div class="ui red message"><i class="close icon"></i><div class="header">Please choose project type.It\'s reqiured</div></div><br>'
+        );
+    } else {
+        var description = CKEDITOR.instances['description'].getData()
+        if (key == '') {
+            var status = 'Added';
+        } else {
+            var status = 'Updated';
+        }
+        $.ajax({
+            url: "pages/updateresume.php",
+            type: "POST",
+            cache: false,
+            data: {
+                pname: pname,
+                duration: duration,
+                team: team,
+                role: role,
+                type: type,
+                description: description,
+                skill: skill,
+                hkey_pro: key
+            },
+
+            beforeSend: function() {
+                $("#add_project").html(" Updating ...");
+
+            },
+            success: function(data) {
+
+                if (data == 1) {
+                    $("#result_projects").fadeIn().html(
+                        '<div class="ui olive message"><i class="close icon"></i><div class="header"> Successfully ' + status + '</div></div><br>'
+                    );
+
+                    setTimeout(function() {
+                        $('#result_projects').fadeOut("slow");
+                        $("#reload_res").load(" #reload_res");
+                        $("#reload_project").load(" #reload_project");
+                        formReset('add_pro');
+                    }, 5000);
+
+
+                    $("#add_project").html("Submit");
+
+                } else if (data == 2) {
+                    $("#result_projects").fadeIn().html(
+                        '<div class="ui red message"><i class="close icon"></i><div class="header"> Sorry ! Some error occured. Try again</div></div><br>'
+                    );
+                    setTimeout(function() {
+                        $('#result_projects').fadeOut("slow");
+
+                    }, 5000);
+
+
+                    $("#add_project").html("Submit");
+
+                } else if (data == 3) {
+                    $("#result_projects").fadeIn().html(
+                        '<div class="ui blue message"><i class="close icon"></i><div class="header"> You should log in before performing this query</div></div><br>'
+                    );
+
+                    setTimeout(function() {
+                        $('#result_projects').fadeOut("slow");
+                    }, 5000);
+
+                    $("#add_project").html("Submit");
+
+                } else if (data == 4) {
+                    $("#result_projects").fadeIn().html(
+                        '<div class="ui red message"><i class="close icon"></i><div class="header">Please enter your description about your project.It\'s reqiured</div></div><br>'
+                    );
+
+
+                    setTimeout(function() {
+                        $('#result_projects').fadeOut("slow");
+                    }, 5000);
+
+                    $("#add_project").html("Submit");
+
+                    document.getElementById('description').focus();
+                } else if (data == 5) {
+                    $("#result_projects").fadeIn().html(
+                        '<div class="ui red message"><i class="close icon"></i><div class="header">Please enter your role in the project.It\'s reqiured</div></div><br>'
+                    );
+
+
+                    setTimeout(function() {
+                        $('#result_projects').fadeOut("slow");
+                    }, 5000);
+
+                    $("#add_project").html("Submit");
+
+                    document.getElementById('role').focus();
+                } else if (data == 6) {
+                    $("#result_projects").fadeIn().html(
+                        '<div class="ui red message"><i class="close icon"></i><div class="header">Please enter your duration of your project.It\'s reqiured</div></div><br>'
+                    );
+                    setTimeout(function() {
+                        $('#result_projects').fadeOut("slow");
+                    }, 5000);
+
+                    $("#add_project").html("Submit");
+
+                    document.getElementById('duration').focus();
+                } else if (data == 7) {
+                    $("#result_projects").fadeIn().html(
+                        '<div class="ui red message"><i class="close icon"></i><div class="header">Please enter your Name of the project.It\'s reqiured</div></div><br>'
+                    );
+                    setTimeout(function() {
+                        $('#result_projects').fadeOut("slow");
+                    }, 5000);
+
+                    document.getElementById('pname').focus();
+                    $("#add_project").html("Submit");
+                } else if (data == 8) {
+                    $("#result_projects").fadeIn().html(
+                        '<div class="ui red message"><i class="close icon"></i><div class="header">Please enter your Team Size of your project.It\'s reqiured</div></div><br>'
+                    );
+                    setTimeout(function() {
+                        $('#result_projects').fadeOut("slow");
+                    }, 5000);
+
+                    $("#add_project").html("Submit");
+
+                    document.getElementById('team').focus();
+                } else if (data == 9) {
+                    $("#result_projects").fadeIn().html(
+                        '<div class="ui red message"><i class="close icon"></i><div class="header">Please enter your Skills used for your project.It\'s reqiured</div></div><br>'
+                    );
+                    setTimeout(function() {
+                        $('#result_projects').fadeOut("slow");
+                    }, 5000);
+
+                    $("#add_project").html("Submit");
+
+                    document.getElementById('skills').focus();
+                } else if (data == 10) {
+                    $("#result_projects").fadeIn().html(
+                        '<div class="ui blue message"><i class="close icon"></i><div class="header"> Already added the project with this name</div></div><br>'
+                    );
+                    setTimeout(function() {
+                        $("#reload_res").load(" #reload_res");
+                        $('#result_projects').fadeOut("slow");
+                    }, 5000);
+
+                    $("#add_project").html("Submit");
+
+                } else if (data == 11) {
+                    $("#result_projects").fadeIn().html(
+                        '<div class="ui red message"><i class="close icon"></i><div class="header"> Not a Valid Key. Refresh the page and edit </div></div><br>'
+                    );
+                    setTimeout(function() {
+                        $("#reload_res").load(" #reload_res");
+                        $('#result_projects').fadeOut("slow");
+                    }, 5000);
+
+                    $("#add_project").html("Submit");
+
+                } else {
+                    $("#result_projects").fadeIn().html(
+                        '<div class="ui blue message"><i class="close icon"></i><div class="header"> Sorry , Some Server error occured please retry !!!</div></div><br>'
+                    );
+
+
+                    setTimeout(function() {
+                        $('#result_projects').fadeOut("slow");
+                    }, 5000);
+
+                    $("#add_project").html("Submit");
+                }
+            },
+            complete: function(data) {
+                $("#add_project").html("Submit");
+            }
+        });
+    }
+
+}
+
+function UpdateOtherInfo() {
+    var paa = CKEDITOR.instances['paa'].getData()
+    var ppt = CKEDITOR.instances['ppt'].getData()
+    var activities = CKEDITOR.instances['activities'].getData()
+    var personal = CKEDITOR.instances['personal'].getData()
+    var agree = document.getElementById('agree_info').checked;
+
+    $.ajax({
+        url: "pages/updateresume.php",
+        type: "POST",
+        cache: false,
+        data: {
+            paa: paa,
+            ppt: ppt,
+            activities: activities,
+            personal: personal,
+            agree: agree
+        },
+
+        beforeSend: function() {
+            $("#btn-oinfo").html(" Updating ...");
+
+        },
+        success: function(data) {
+
+            if (data == 1) {
+                $("#result_otherinfo").fadeIn().html(
+                    '<div class="ui olive message"><i class="close icon"></i><div class="header"> Successfully Updated</div></div><br>'
+                );
+
+                setTimeout(function() {
+                    $('#result_otherinfo').fadeOut("slow");
+                    $("#reload_res").load(" #reload_res");
+
+                }, 5000);
+
+                $("#btn-oinfo").html("Submit");
+            } else if (data == 2) {
+                $("#result_otherinfo").fadeIn().html(
+                    '<div class="ui red message"><i class="close icon"></i><div class="header"> Sorry ! Some error occured. Try again</div></div><br>'
+                );
+                setTimeout(function() {
+                    $('#result_otherinfo').fadeOut("slow");
+                }, 5000);
+
+                $("#btn-oinfo").html("Submit");
+            } else if (data == 3) {
+                $("#result_otherinfo").fadeIn().html(
+                    '<div class="ui blue message"><i class="close icon"></i><div class="header"> You should log in before performing this query</div></div><br>'
+                );
+
+                setTimeout(function() {
+                    $('#result_otherinfo').fadeOut("slow");
+                }, 5000);
+
+                $("#btn-oinfo").html("Submit");
+            } else if (data == 5) {
+                $("#result_otherinfo").fadeIn().html(
+                    '<div class="ui red message"><i class="close icon"></i><div class="header">Please enter your Personal information. It\'ss required.</div></div><br>'
+                );
+
+
+                setTimeout(function() {
+                    $('#result_otherinfo').fadeOut("slow");
+                }, 5000);
+
+                $("#btn-oinfo").html("Submit");
+            } else if (data == 4) {
+                $("#result_otherinfo").fadeIn().html(
+                    '<div class="ui red message"><i class="close icon"></i><div class="header"> You must and should give the declaration.</div></div><br>'
+                );
+                setTimeout(function() {
+                    $('#result_otherinfo').fadeOut("slow");
+                }, 5000);
+
+                $("#btn-oinfo").html("Submit");
+                $('html, body').animate({
+                    scrollTop: $("#other").offset().top
+                }, 2000);
+            } else {
+                $("#result_otherinfo").fadeIn().html(
+                    '<div class="ui blue message"><i class="close icon"></i><div class="header"> Sorry , Some Server error occured please retry !!!</div></div><br>'
+                );
+
+
+                setTimeout(function() {
+                    $('#result_otherinfo').fadeOut("slow");
+                }, 5000);
+
+                $("#btn-oinfo").html("Submit");
+            }
+        },
+        complete: function(data) {
+            $("#btn-oinfo").html("Submit");
+        }
+    });
+
+}

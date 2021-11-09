@@ -1,0 +1,396 @@
+.home-banner {
+    background-image: linear-gradient(45deg, rgb(189, 197, 168), white);
+    height: auto;
+    display: flex;
+    padding-left: 143px;
+    padding-right: 132px;
+    padding-top: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.hire-panel {
+    margin-bottom: 52px;
+    margin-top: 60px;
+    background-color: #f93d66;
+    background: linear-gradient(145deg, #73798a, #588484);
+    /* background-image: url("../../images/hire.jpeg"); */
+    /* background-repeat: no-repeat; */
+    border-radius: 4px;
+}
+
+.hire-content {
+    padding: 20px 35px;
+}
+
+.hire-panel__logo-white {
+    display: inline-block;
+    height: 22px;
+    width: 146px;
+}
+
+.hire-panel .hire-heading {
+    color: hsl(0, 0%, 100%);
+}
+
+.hire-button {
+    background-color: #f93d66;
+    padding: 6px 16px;
+    color: hsl(0, 0%, 100%);
+    font-size: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-block;
+    letter-spacing: 3px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.hire-text-heading.-size-l {
+    font-size: 28px;
+}
+
+.hire-text-heading {
+    -webkit-font-smoothing: antialiased;
+    font-family: -apple-system, BlinkMacSystemFont, "“Segoe UI”", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "“Helvetica Neue”", sans-serif;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 16px;
+    padding: 0px;
+}
+
+.mb0 {
+    margin-bottom: 0px !important;
+}
+
+.hire-text-body {
+    -webkit-font-smoothing: antialiased;
+    font-family: -apple-system, BlinkMacSystemFont, "“Segoe UI”", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "“Helvetica Neue”", sans-serif;
+    line-height: 1.5;
+    margin-bottom: 16px;
+    padding: 0px;
+}
+
+.hire-text-body {
+    font-size: 16px;
+}
+
+.hire-panel_button-wrapper {
+    margin-top: 16px;
+}
+
+.user-banner {
+    display: block;
+    margin-bottom: 32px;
+}
+
+.banner-content {
+    display: flex;
+    flex-direction: row;
+}
+
+.alert-success {
+    background-image: linear-gradient(45deg, #141e30, #243b55);
+    border-color: transparent;
+    color: #fff;
+    font-size: 18px;
+}
+
+.alert {
+    padding: 16px;
+    margin-bottom: 21px;
+    border: 1px solid transparent;
+    text-align: left;
+    position: relative;
+}
+
+.alert-text {
+    font-size: 15px;
+    margin: 8px 0;
+}
+
+.alert-text>a {
+    color: yellowgreen;
+    font-weight: 400;
+}
+
+.text-elipsis {
+    display: block;
+    display: -webkit-box;
+    max-width: auto;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-indent: 20px;
+}
+
+.navbar-small {
+    position: relative;
+    top: 60px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    overflow: hidden;
+    align-items: flex-start;
+    background: #f7f8fa;
+    border-bottom: 1px solid #dedfe0;
+    height: 44px;
+    padding: 0;
+}
+
+.navbar-small .link {
+    display: block;
+    color: #686f7a;
+    font-size: 13px;
+    font-weight: 400;
+    padding: 12px 32px;
+}
+
+div.overflow {
+    width: auto;
+    overflow-x: scroll;
+}
+
+.activity-card {
+    width: 280px !important;
+}
+
+.home-banner-text {
+    padding: 10px;
+    color: rgba(0, 0, 0, 0.5);
+    font-family: Raleway;
+}
+
+.wrapper {
+    width: 100%;
+    padding: 20px;
+}
+
+.mb7 {
+    margin-top: 7%;
+}
+
+li {
+    list-style: none;
+}
+
+ul.tiBlockedline {
+    list-style-type: none;
+    position: relative;
+}
+
+ul.tiBlockedline:before {
+    content: ' ';
+    background: #d4d9df;
+    display: inline-block;
+    position: absolute;
+    left: 29px;
+    width: 2px;
+    height: 100%;
+    z-index: 400;
+}
+
+ul.tiBlockedline>li {
+    margin: 20px 0;
+    padding-left: 20px;
+}
+
+ul.tiBlockedline>li:before {
+    content: ' ';
+    background: white;
+    display: inline-block;
+    position: absolute;
+    border-radius: 50%;
+    border: 3px solid #22c0e8;
+    left: 20px;
+    width: 20px;
+    height: 20px;
+    z-index: 400;
+}
+
+.slider {
+    width: 100%;
+    margin: 10px auto;
+}
+
+.slick-slide {
+    margin: 5px 20px;
+}
+
+.card-header {
+    justify-content: center !important;
+}
+
+.slick-slide img {
+    width: 100px !important;
+    margin-left: 100px !important;
+}
+
+.slick-prev:before,
+.slick-next:before {
+    color: black !important;
+}
+
+.slick-slide {
+    transition: all ease-in-out .3s;
+    opacity: .2;
+}
+
+.slick-active {
+    opacity: .5;
+}
+
+.slick-current {
+    opacity: 1;
+}
+
+.hidden.menu {
+    display: none;
+}
+
+.masthead.segment {
+    min-height: 700px;
+    padding: 1em 0em;
+}
+
+.masthead .logo.item img {
+    margin-right: 1em;
+}
+
+.masthead .ui.menu .ui.button {
+    margin-left: 0.5em;
+}
+
+.masthead h1.ui.header {
+    margin-top: 3em;
+    margin-bottom: 0em;
+    font-size: 4em;
+    font-weight: normal;
+}
+
+.masthead h2 {
+    font-size: 1.7em;
+    font-weight: normal;
+}
+
+.ui.vertical.stripe {
+    padding: 8em 0em;
+}
+
+.ui.vertical.stripe h3 {
+    font-size: 2em;
+}
+
+.ui.vertical.stripe .button+h3,
+.ui.vertical.stripe p+h3 {
+    margin-top: 3em;
+}
+
+.ui.vertical.stripe .floated.image {
+    clear: both;
+}
+
+.ui.vertical.stripe p {
+    font-size: 1.33em;
+}
+
+.ui.vertical.stripe .horizontal.divider {
+    margin: 3em 0em;
+}
+
+.quote.stripe.segment {
+    padding: 0em;
+}
+
+.quote.stripe.segment .grid .column {
+    padding-top: 5em;
+    padding-bottom: 5em;
+}
+
+.footer.segment {
+    padding: 5em 0em;
+}
+
+.secondary.pointing.menu .toc.item {
+    display: none;
+}
+
+@media only screen and (max-width: 300px) {
+    .pusher {
+        display: none;
+    }
+    .cdpc_title_small {
+        display: none;
+    }
+    .cdpc_title {
+        display: none;
+    }
+}
+
+@media only screen and (min-width: 300px) and (max-width: 521px) {
+    .cdpc_title {
+        display: none;
+    }
+    .cdpc_title_small {
+        display: block;
+        font-size: 13px;
+    }
+    .navbar-small {
+        display: none !important;
+    }
+}
+
+@media only screen and (min-width: 521px) {
+    .cdpc_title {
+        display: block;
+    }
+    .cdpc_title_small {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 991px) {
+    .home-banner-text {
+        font-size: 20px;
+    }
+    .activity-card {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 700px) {
+    .secondary.pointing.menu .item,
+    .secondary.pointing.menu .menu {
+        display: none;
+    }
+    .secondary.pointing.menu .toc.item {
+        display: block;
+    }
+    .masthead.segment {
+        min-height: 350px;
+    }
+    .masthead h1.ui.header {
+        font-size: 2em;
+        margin-top: 1.5em;
+    }
+    .masthead h2 {
+        margin-top: 0.5em;
+        font-size: 1.5em;
+    }
+    .slick-slide img {
+        margin: auto !important;
+    }
+    .mb7 {
+        margin-top: 20%;
+    }
+    .home-banner-text {
+        display: none;
+    }
+    .pro-image {
+        width: 80px !important;
+        height: 160px;
+    }
+}
